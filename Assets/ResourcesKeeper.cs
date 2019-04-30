@@ -16,7 +16,7 @@ public class ResourcesKeeper : MonoBehaviour
     }
     public void GiveResources()
     {
-            switch (this.gameObject.tag)
+            switch (this.gameObject.transform.parent.gameObject.tag)
             {
                 case "Wood":
                     resourcesCounter--;
@@ -29,7 +29,7 @@ public class ResourcesKeeper : MonoBehaviour
     private void ChangeSize()
     {
         if (resourcesCounter <= 0)
-            Destroy(this.gameObject);
+            Destroy(this.transform.parent.gameObject);
 
         this.gameObject.transform.localScale = this.gameObject.transform.localScale - new Vector3(0.1f, 0.1f, 0.1f);
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 0.1f * 0.7f, this.transform.position.z);

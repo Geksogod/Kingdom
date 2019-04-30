@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107196}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0025861, y: -0.072883, z: -0.0014017}
+  m_LocalPosition: {x: -0.05661, y: 0.0067482, z: -0.031528}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -93,7 +93,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 0
-  m_CookingOptions: 14
+  m_CookingOptions: 0
   m_Mesh: {fileID: 4300000, guid: 684bbd9492f5d924a822cdcd771cd3ae, type: 3}
 --- !u!65 &7685320616632340513
 BoxCollider:
@@ -106,8 +106,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2992263, y: 0.5009687, z: 1.2999675}
-  m_Center: {x: -0.0025861263, y: -0.48156774, z: 0.0014016628}
+  m_Size: {x: 0.14230715, y: 0.5009687, z: 0.15766591}
+  m_Center: {x: -0.019302718, y: -0.48156774, z: 0.016799688}
 --- !u!114 &8050451478119032316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abdfb8573fbaa984686036191a664d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourcesCounter: 0
 --- !u!95 &6996473107763417666
 Animator:
   serializedVersion: 3
