@@ -1,71 +1,43 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class workerMove : MonoBehaviour
 {
     // Start is called before the first frame update
-    private bool finish = false;
+    private Human human;
     private bool flag = false;
-    private bool found = false;
-    private GameObject target;
-    void Start()
-    {
+    private bool go = false;
+    NavMeshAgent agent;
+    
 
+    private void Start()
+    {
+        human = gameObject.GetComponent<Human>();
+        agent = this.gameObject.GetComponent<NavMeshAgent>();
     }
-
-    // Update is called once per frame
-    void Update()
+    public void MoveTo()
     {
-        FindResources();
-    }
-
-
-    public void FindResources()
-    {
-        if (!found)
-        {
-            target = GameObject.FindGameObjectsWithTag("Wood")[0];
-            for (int i = 0; i < GameObject.FindGameObjectsWithTag("Wood").Length; i++)
+            if (!flag)
             {
-                GameObject checktarget = GameObject.FindGameObjectsWithTag("Wood")[i];
-                if (transform.transform.position.magnitude - target.transform.position.magnitude < transform.position.magnitude - checktarget.transform.position.magnitude)
-                    target = checktarget;
-
+                transform.LookAt(new Vector3(human.target.transform.position.x, human.target.transform.position.y, human.target.transform.position.z));
+                flag = true;
             }
-            found = true;
-        }
-        Debug.Log(target);
-        MoveToResources(target);
-    }
-    public void MoveToResources(GameObject target)
-    {
-        if (!flag)
-        {
-            this.transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z));
-            flag = true;
-        }
-        if (!finish)
-        {
-            this.gameObject.transform.position = Vector3.MoveTowards(this.transform.position, target.transform.position, 5f * Time.fixedDeltaTime);
-
-        }
-    }
-    public void FindNextResources()
-    {
-        finish = false;
-        flag = false;
-        found = false;
+        agent.SetDestination(human.target.transform.position);
+        //transform.position = Vector3.MoveTowards(transform.position, human.target.transform.position, 3f * Time.fixedDeltaTime);
+        
     }
 
-    private void OnTriggerEnter(Collider other)
+
+    public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.transform.parent.gameObject == target.gameObject)
+        if (other.gameObject.transform.parent != null && other.gameObject.transform.parent.gameObject == human.target.gameObject)
         {
-            finish = true;
-            flag = false;       
-            this.gameObject.GetComponent<WorkerWork>().StartProduction(other.gameObject);
+            flag = false;
+            human.readyForWork = true;
+            human.readyToMove = false;
+            human.Doing();
         }
     }
 
