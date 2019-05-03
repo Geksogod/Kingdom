@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ResourcesKeeper : MonoBehaviour
 {
@@ -6,21 +7,21 @@ public class ResourcesKeeper : MonoBehaviour
     private Vector3 startSize;
     public void Start()
     {
-        resourcesCounter = Random.Range(3, 10);
+        resourcesCounter = UnityEngine.Random.Range(3, 10);
         float changeSize = (float)resourcesCounter * 0.1F;
         this.gameObject.transform.localScale = this.gameObject.transform.localScale + new Vector3(changeSize, changeSize, changeSize);
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + changeSize * 0.7f, this.transform.position.z);
     }
-    public void GiveResources()
+    public Tuple<string,float> GiveResources()
     {
         switch (this.gameObject.transform.parent.gameObject.tag)
         {
             case "Wood":
                 resourcesCounter--;
-                GameObject.Find("ResourcesSystem").GetComponent<Resources>().ChangeCounter(Resources.Resource.Wood);
                 ChangeSize();
-                break;
+                return GameObject.Find("ResourcesSystem").GetComponent<Resources>().ChangeCounter(Resources.Resource.Wood);
         }
+        return Tuple.Create("null", -1f);
     }
 
     private void ChangeSize()
