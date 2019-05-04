@@ -1,11 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Resources : MonoBehaviour
 {
-    public string typeRes;
-    public float mass;
     public enum Resource
     {
         Wood
@@ -19,16 +16,14 @@ public class Resources : MonoBehaviour
         woodCounter.text = wood.ToString();
     }
 
-    public Tuple<string,float> ChangeCounter(Resource resource)
+    public void ChangeCounter(Resource resource)
     {
         switch (resource)
         {
             case Resource.Wood:
-                typeRes = "Wood";
-                mass = 10f;
-                //woodCounter.text = wood.ToString();
+                wood++;
+                woodCounter.text = wood.ToString();
                 break;
         }
-        return Tuple.Create(typeRes, mass);
     }
 }

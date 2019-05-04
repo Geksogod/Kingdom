@@ -17,7 +17,7 @@ public class WorkerWork : MonoBehaviour
         if (ResourcesKeeper != null && ResourcesKeeper.GetComponent<ResourcesKeeper>().resourcesCounter > 0)
         {
             StartCoroutine(RechargeGetResources());
-            human.inventory.Add(ResourcesKeeper.GetComponent<ResourcesKeeper>().GiveResources().Item1, ResourcesKeeper.GetComponent<ResourcesKeeper>().GiveResources().Item2);
+            ResourcesKeeper.GetComponent<ResourcesKeeper>().GiveResources();
         }
         else
         {

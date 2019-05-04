@@ -14,20 +14,14 @@ public class WorkerFindResources : MonoBehaviour
     {
         if(GameObject.FindGameObjectsWithTag(resoursec).Length>0)
             target = GameObject.FindGameObjectsWithTag(resoursec)[0];
-        float closestDistanceSqr = Mathf.Infinity;
-        Vector3 currentPosition = this.transform.position;
-        for (int i = 0; i < GameObject.FindGameObjectsWithTag("Wood").Length; i++)
+        for (int i = 0; i < GameObject.FindGameObjectsWithTag(resoursec).Length; i++)
         {
-            Vector3 directionToTarget = GameObject.FindGameObjectsWithTag("Wood")[i].transform.position - currentPosition;
-            float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
-            {
-                closestDistanceSqr = dSqrToTarget;
-                target = GameObject.FindGameObjectsWithTag("Wood")[i];
-            }
+            GameObject checktarget = GameObject.FindGameObjectsWithTag(resoursec)[i];
+            if (transform.position.magnitude - target.transform.position.magnitude > transform.position.magnitude - checktarget.transform.position.magnitude)
+                target = checktarget;
         }
-            
-
+        if(target==null)
+            human.relaxation = true;
         return target;
     }
 

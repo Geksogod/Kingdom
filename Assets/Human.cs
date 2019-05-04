@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 
 public class Human : MonoBehaviour
 {
@@ -10,21 +8,17 @@ public class Human : MonoBehaviour
     public float armor;
     public float damage;
     public float capacity;
-    public float maxCapacity;
     public float speed;
-    public float startSpeed;
-    private float maxSpeed;
 
     public bool readyForWork = false;
     public bool readyToMove = false;
     public bool relaxation = false;
-    public Dictionary<string, float> inventory = new Dictionary<string, float>(5);
+
     public GameObject target;
 
     private WorkerWork Work;
     private WorkerFindResources Find;
     private workerMove Move;
-    private bool isFull;
     public enum ProfesionList
     {
         Worker
@@ -39,12 +33,8 @@ public class Human : MonoBehaviour
                 life = 60;
                 armor = 5;
                 damage = 10;
-                capacity = 0;
-                maxCapacity = 60;
-                speed = 3;
-                startSpeed = maxSpeed =speed;
-                this.gameObject.GetComponent<NavMeshAgent>().speed = speed;
-                isFull = false;
+                capacity = 70;
+                speed = 40;
                 this.gameObject.AddComponent<WorkerFindResources>();
                 this.gameObject.AddComponent<workerMove>();
                 this.gameObject.AddComponent<WorkerWork>();
@@ -53,7 +43,6 @@ public class Human : MonoBehaviour
         Find = this.gameObject.GetComponent<WorkerFindResources>();
         Move = this.gameObject.GetComponent<workerMove>();
         Work = this.gameObject.GetComponent<WorkerWork>();
-        RecalculationSpeed();
         Doing();
     }
 
@@ -67,12 +56,11 @@ public class Human : MonoBehaviour
             else
                 readyToMove = false;
         }
-        if (!relaxation&&!isFull&&readyForWork)
+        if (!relaxation&&readyForWork)
             Work.StartProduction(target.transform.GetChild(0).gameObject);
     }
     private void Update()
     {
-        
         if (!relaxation&&readyToMove)
         {
              Move.MoveTo();
@@ -87,32 +75,6 @@ public class Human : MonoBehaviour
             Move.OnTriggerEnter(other);
     }
 
-    public void Filling(float newResources)
-    {
-        capacity -= newResources;
-        if (capacity >= maxCapacity)
-            isFull = true;
-        foreach (KeyValuePair<string, float> keyValue in inventory)
-        {
-            Debug.Log(keyValue.Key + " - " + keyValue.Value);
-        }
-        RecalculationSpeed();
-    }
-
-    public void RecalculationSpeed()
-    {
-        if (!isFull)
-        {
-            speed = startSpeed;
-            speed = speed * (1-(capacity/ startSpeed));
-            if (speed > startSpeed)
-                speed = startSpeed;
-            else if (speed < 0.5f)
-                speed = 0.5f;
-        }
-        this.gameObject.GetComponent<NavMeshAgent>().speed = speed;
-            
-    }
 }
 
 

@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class workerMove : MonoBehaviour
@@ -8,7 +10,7 @@ public class workerMove : MonoBehaviour
     private bool flag = false;
     private bool go = false;
     NavMeshAgent agent;
-
+    
 
     private void Start()
     {
@@ -17,14 +19,14 @@ public class workerMove : MonoBehaviour
     }
     public void MoveTo()
     {
-        if (!flag)
-        {
-            transform.LookAt(new Vector3(human.target.transform.position.x, human.target.transform.position.y, human.target.transform.position.z));
-            flag = true;
-        }
+            if (!flag)
+            {
+                transform.LookAt(new Vector3(human.target.transform.position.x, human.target.transform.position.y, human.target.transform.position.z));
+                flag = true;
+            }
         agent.SetDestination(human.target.transform.position);
         //transform.position = Vector3.MoveTowards(transform.position, human.target.transform.position, 3f * Time.fixedDeltaTime);
-
+        
     }
 
 
