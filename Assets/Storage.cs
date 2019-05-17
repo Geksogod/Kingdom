@@ -8,6 +8,8 @@ public class Storage : MonoBehaviour
     private int capacity;
     private int filling;
     public bool open;
+    [HideInInspector]
+    public int arratIdx = 2;
     void Start()
     {
         Recalculation();

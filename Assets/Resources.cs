@@ -10,6 +10,10 @@ public class Resources : MonoBehaviour
     {
         Wood
     }
+    public Resources(string type)
+    {
+        typeRes = type;
+    }
     public Resource selectedResurces;
     public Text woodCounter;
     public int wood;
@@ -19,16 +23,16 @@ public class Resources : MonoBehaviour
         woodCounter.text = wood.ToString();
     }
 
-    public Tuple<string,float> ChangeCounter(Resource resource)
-    {
-        switch (resource)
-        {
-            case Resource.Wood:
-                typeRes = "Wood";
-                mass = 10f;
-                //woodCounter.text = wood.ToString();
-                break;
-        }
-        return Tuple.Create(typeRes, mass);
-    }
+    //public Tuple<string,float> ChangeCounter(Resource resource)
+    //{
+    //    switch (resource)
+    //    {
+    //        case Resource.Wood:
+    //            typeRes = "Wood";
+    //            mass = 10f;
+    //            //woodCounter.text = wood.ToString();
+    //            break;
+    //    }
+    //    return Tuple.Create(typeRes, mass);
+    //}
 }
