@@ -14,15 +14,22 @@ public class ResourcesKeeper : MonoBehaviour
     }
     public Resources.Resource GiveResources()
     {
+        Resources.Resource res = Resources.Resource.Wood;
         switch (this.gameObject.transform.parent.tag)
         {
-            case "Wood":
-                resourcesCounter--;
-                ChangeSize();
-                Debug.Log("Wood");
-                return Resources.Resource.Wood;
+            case "Wood":               
+                res =  Resources.Resource.Wood;
+                break;
+            case "Rock":             
+                res = Resources.Resource.Rock;
+                break;
+            case "Berries":
+                res = Resources.Resource.Berries;
+                break;
         }
-        return Resources.Resource.Wood;
+        resourcesCounter--;
+        ChangeSize();
+        return res;
     }
 
     private void ChangeSize()

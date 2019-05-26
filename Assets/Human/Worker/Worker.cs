@@ -4,11 +4,13 @@ using UnityEngine;
 public class Worker : Human
 {
     public List<Resources.Resource> inventory = new List<Resources.Resource>();
+    public Transform Debuging;
     public enum WhatToDo
     {
         goToStorage,
         working,
         Moving,
+        Stop,
         readyToChoseTarget
 
     }
@@ -17,12 +19,17 @@ public class Worker : Human
     {
         Do = WhatToDo.readyToChoseTarget;
         maxSpeed = speed;
+        Doing();
     }
-    void Update()
+
+
+    public void Doing()
     {
         switch (Do)
         {
-
+            case WhatToDo.Stop:
+                Stop();
+                break;
             case WhatToDo.goToStorage:
                 if (target.tag != "Storage")
                     target = ChooseTarget("Storage");
@@ -30,7 +37,7 @@ public class Worker : Human
                     Move(target);
                 break;
             case WhatToDo.readyToChoseTarget:
-                target = ChooseTarget(Target.Type.Wood);
+                target = ChooseTarget(typeTarget);
                 if (target != null)
                     Do = WhatToDo.Moving;
                 break;
@@ -42,7 +49,6 @@ public class Worker : Human
                 break;
 
         }
-
     }
 
     private void OnTriggerStay(Collider other)
@@ -60,6 +66,7 @@ public class Worker : Human
                 }
                 else
                 {
+                    Do = WhatToDo.Stop;
                     if (ready)
                     {
                         inventory.Add(other.gameObject.GetComponent<ResourcesKeeper>().GiveResources());
@@ -68,6 +75,7 @@ public class Worker : Human
                     }
                     else
                     {
+                        
                         KD();
                         Do = WhatToDo.working;
                     }
@@ -79,8 +87,7 @@ public class Worker : Human
                 {
                     if (inventory.Count > 0)
                     {
-                        other.gameObject.GetComponent<Storage>().AddRes(inventory[0]);
-                        inventory.Remove(0);
+                        inventory = other.gameObject.GetComponent<Storage>().AddRes(inventory);
                         ready = false;
                     }
                     else
@@ -98,6 +105,7 @@ public class Worker : Human
         {
             Do = WhatToDo.readyToChoseTarget;
         }
+        Doing();
     }
 
     public void Inventory()

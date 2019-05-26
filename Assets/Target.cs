@@ -7,7 +7,8 @@ public class Target : MonoBehaviour
    public enum Type
    {
         Wood,
-        das
-   }
+        Rock,
+        Berries
+    }
 
 }
