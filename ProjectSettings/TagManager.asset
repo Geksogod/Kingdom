@@ -9,6 +9,7 @@ TagManager:
   - Storage
   - Rock
   - Berries
+  - Building
   layers:
   - Default
   - TransparentFX

@@ -11,13 +11,15 @@ public class Worker : Human
         working,
         Moving,
         Stop,
+        Build,
         readyToChoseTarget
 
     }
     public WhatToDo Do;
     void Start()
     {
-        Do = WhatToDo.readyToChoseTarget;
+        //Do = WhatToDo.readyToChoseTarget;
+        Do = WhatToDo.Build;
         maxSpeed = speed;
         Doing();
     }
@@ -99,7 +101,7 @@ public class Worker : Human
                 {
                     KD();
                 }
-            }
+            }           
         }
         else
         {
